@@ -4,6 +4,7 @@
 
 * [Introducción al aprendizaje automático](#introducción-al-aprendizaje-automático)
     * [Aprendizaje supervisado contra no supervisado](#aprendizaje-supervisado-contra-no-supervisado)
+* [Regresión lineal](#regresión-lineal)
 
 <!-- vim-markdown-toc -->
 
@@ -18,4 +19,16 @@ El aprendizaje supervisado es un tipo de aprendizaje automático donde se propor
 Por otro lado, el aprendizaje no supervisado es un tipo de aprendizaje automático donde el modelo se entrena en un conjunto de datos sin etiquetas, es decir, sin respuestas correctas proporcionadas, con el objetivo de descubrir patrones o relaciones en los datos. Este tipo de aprendizaje se utiliza para tareas de clustering, reducción de dimensionalidad, entre otras.
 
 En resumen, en el aprendizaje supervisado se proporciona información para guiar el aprendizaje, mientras que en el aprendizaje no supervisado el modelo debe encontrar patrones en los datos por sí solo.
+
+# Regresión lineal
+
+La regresión lineal es un tipo de modelo de aprendizaje supervisado que se utiliza para predecir una variable numérica en función de otras variables. Es llamado "lineal" porque el modelo supone una relación lineal entre las variables predictoras y la variable objetivo.
+
+En la regresión lineal, se ajusta una recta (o hiperplano en caso de múltiples variables) a los datos de entrenamiento de manera que se minimice la suma de los errores cuadráticos entre las predicciones y los valores reales. La recta ajustada se puede usar para hacer predicciones en nuevos datos.
+
+La regresión lineal es una herramienta muy útil en muchos campos, como la economía, la finanzas, la biología, entre otros, y se puede usar tanto para modelar relaciones simples como para resolver problemas más complejos.
+
+Función implementada en Python:
+
+https://github.com/FelipeSanchezSoberanis/aprendizaje-automatico/blob/5803dfb189a756101fec3d8948551f7e475ee9b3/linear_regression.py#L5-L18
 
