@@ -43,3 +43,7 @@ donde $\Theta$ es un vector de coeficientes, $X$ es una matriz de variables inde
 
 En esencia, la ecuación normal resuelve los coeficientes que minimizan la suma de las diferencias cuadradas entre los valores pronosticados y reales de la variable dependiente. Lo hace encontrando el punto donde el gradiente de la suma de los errores cuadrados es cero, lo que es equivalente a resolver un sistema de ecuaciones lineales. La ecuación normal se puede utilizar tanto para regresión lineal simple como para regresión lineal múltiple.
 
+Función implementada en Python:
+
+https://github.com/FelipeSanchezSoberanis/aprendizaje-automatico/blob/91b63479e46955195d9789dc53339c38842a1cdb/normal_equation.py#L4-L6
+
