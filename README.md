@@ -6,6 +6,10 @@
     * [Aprendizaje supervisado contra no supervisado](#aprendizaje-supervisado-contra-no-supervisado)
 * [Regresión lineal](#regresión-lineal)
 * [Ecuación normal](#ecuación-normal)
+* [Cálculos de error](#cálculos-de-error)
+    * [Error absoluto medio](#error-absoluto-medio)
+    * [Error cuadrático medio con raiz](#error-cuadrático-medio-con-raiz)
+    * [Error cuadrático medio](#error-cuadrático-medio)
 
 <!-- vim-markdown-toc -->
 
@@ -46,4 +50,64 @@ En esencia, la ecuación normal resuelve los coeficientes que minimizan la suma 
 Función implementada en Python:
 
 https://github.com/FelipeSanchezSoberanis/aprendizaje-automatico/blob/91b63479e46955195d9789dc53339c38842a1cdb/normal_equation.py#L4-L6
+
+# Cálculos de error
+
+## Error absoluto medio
+
+El Error Absoluto Medio (MAE, por sus siglas en inglés) es una métrica utilizada para medir la diferencia promedio entre los valores reales y los valores predichos en un conjunto de datos. Es una métrica comúnmente utilizada en el análisis de regresión.
+
+La fórmula para el MAE es:
+
+$$ \text{MAE} = \frac{1}{n} \sum_{i = 1}^{n} |\text{real}_i - \text{predicho}_i| $$
+
+donde:
+
+- n es el número total de observaciones en el conjunto de datos
+- real_i es el valor real de la i-ésima observación
+- predicho_i es el valor predicho de la i-ésima observación
+
+El MAE se calcula tomando la diferencia absoluta entre cada valor real y predicho, sumando estas diferencias y luego dividiendo por el número total de observaciones. El resultado es un valor no negativo, donde un valor más pequeño indica un mejor rendimiento del modelo.
+
+El MAE es útil en situaciones donde los grandes errores son indeseables y la magnitud del error es importante. Por ejemplo, en el contexto de predecir los precios de las casas, se preferiría un modelo con un MAE más pequeño porque esto resultaría en predicciones más precisas y posiblemente mejores resultados para los compradores y vendedores.
+
+## Error cuadrático medio con raiz
+
+El Error Cuadrático Medio (RMSE, por sus siglas en inglés) es una métrica utilizada para medir la diferencia promedio entre los valores reales y los valores predichos en un conjunto de datos. Es una métrica comúnmente utilizada en el análisis de regresión.
+
+La fórmula para el RMSE es:
+
+$$ \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (\text{real}_i - \text{predicho}_i)^2} $$
+
+donde:
+
+- n es el número total de observaciones en el conjunto de datos
+- real_i es el valor real de la i-ésima observación
+- predicho_i es el valor predicho de la i-ésima observación
+
+El RMSE se calcula tomando el cuadrado de la diferencia entre cada valor real y predicho, sumando estos cuadrados, dividiendo por el número total de observaciones y luego tomando la raíz cuadrada del resultado. El resultado es un valor no negativo, donde un valor más pequeño indica un mejor rendimiento del modelo.
+
+El RMSE es útil en situaciones donde los grandes errores son indeseables y la magnitud del error es importante, pero la presencia de valores atípicos (outliers) en los datos puede sesgar los resultados. A diferencia del MAE, el RMSE penaliza más severamente los errores grandes debido al cuadrado de la diferencia. Sin embargo, esto también puede hacerlo más sensible a los valores atípicos.
+
+Por ejemplo, en el contexto de predecir el consumo de energía, se preferiría un modelo con un RMSE más pequeño porque esto resultaría en predicciones más precisas y posiblemente mejores resultados para las compañías de energía y los consumidores.
+
+## Error cuadrático medio
+
+El Error Cuadrático Medio (MSE, por sus siglas en inglés) es una métrica utilizada para medir la diferencia promedio al cuadrado entre los valores reales y los valores predichos en un conjunto de datos. Es una métrica comúnmente utilizada en el análisis de regresión.
+
+La fórmula para el MSE es:
+
+$$ \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (\text{real}_i - \text{predicho}_i)^2 $$
+
+donde:
+
+- n es el número total de observaciones en el conjunto de datos
+- real_i es el valor real de la i-ésima observación
+- predicho_i es el valor predicho de la i-ésima observación
+
+El MSE se calcula tomando la diferencia al cuadrado entre cada valor real y predicho, sumando estos cuadrados y luego dividiendo por el número total de observaciones. El resultado es un valor no negativo, donde un valor más pequeño indica un mejor rendimiento del modelo.
+
+El MSE es útil en situaciones donde los grandes errores son indeseables y la magnitud del error es importante. Sin embargo, como el RMSE, el MSE puede ser sensible a los valores atípicos (outliers).
+
+Por ejemplo, en el contexto de predecir los precios de las acciones, se preferiría un modelo con un MSE más pequeño porque esto resultaría en predicciones más precisas y posiblemente mejores resultados para los inversores.
 
