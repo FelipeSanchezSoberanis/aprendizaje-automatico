@@ -39,7 +39,7 @@ La ecuación normal es una ecuación matemática utilizada en regresión lineal 
 
 $$ \Theta = (X^TX)^{-1}X^Ty $$
 
-donde θ es un vector de coeficientes, X es una matriz de variables independientes (también conocida como matriz de diseño), y es un vector de la variable dependiente, y ^T denota la transposición de una matriz.
+donde $\Theta$ es un vector de coeficientes, X es una matriz de variables independientes (también conocida como matriz de diseño), y es un vector de la variable dependiente, y ^T denota la transposición de una matriz.
 
 En esencia, la ecuación normal resuelve los coeficientes que minimizan la suma de las diferencias cuadradas entre los valores pronosticados y reales de la variable dependiente. Lo hace encontrando el punto donde el gradiente de la suma de los errores cuadrados es cero, lo que es equivalente a resolver un sistema de ecuaciones lineales. La ecuación normal se puede utilizar tanto para regresión lineal simple como para regresión lineal múltiple.
 
