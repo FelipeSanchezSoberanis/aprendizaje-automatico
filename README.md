@@ -5,6 +5,7 @@
 * [Introducción al aprendizaje automático](#introducción-al-aprendizaje-automático)
     * [Aprendizaje supervisado contra no supervisado](#aprendizaje-supervisado-contra-no-supervisado)
 * [Regresión lineal](#regresión-lineal)
+* [Ecuación normal](#ecuación-normal)
 
 <!-- vim-markdown-toc -->
 
@@ -31,4 +32,14 @@ La regresión lineal es una herramienta muy útil en muchos campos, como la econ
 Función implementada en Python:
 
 https://github.com/FelipeSanchezSoberanis/aprendizaje-automatico/blob/5803dfb189a756101fec3d8948551f7e475ee9b3/linear_regression.py#L5-L18
+
+# Ecuación normal
+
+La ecuación normal es una ecuación matemática utilizada en regresión lineal para encontrar los coeficientes que minimizan la suma de los errores cuadrados entre los valores pronosticados y reales de la variable dependiente. La ecuación normal se expresa de la siguiente manera:
+
+$$ \Theta = (X^TX)^{-1}X^Ty $$
+
+donde θ es un vector de coeficientes, X es una matriz de variables independientes (también conocida como matriz de diseño), y es un vector de la variable dependiente, y ^T denota la transposición de una matriz.
+
+En esencia, la ecuación normal resuelve los coeficientes que minimizan la suma de las diferencias cuadradas entre los valores pronosticados y reales de la variable dependiente. Lo hace encontrando el punto donde el gradiente de la suma de los errores cuadrados es cero, lo que es equivalente a resolver un sistema de ecuaciones lineales. La ecuación normal se puede utilizar tanto para regresión lineal simple como para regresión lineal múltiple.
 
