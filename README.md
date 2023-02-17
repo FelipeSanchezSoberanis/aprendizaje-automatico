@@ -10,6 +10,7 @@
     * [Error absoluto medio](#error-absoluto-medio)
     * [Error cuadrático medio con raiz](#error-cuadrático-medio-con-raiz)
     * [Error cuadrático medio](#error-cuadrático-medio)
+* [Gradiente descendente](#gradiente-descendente)
 
 <!-- vim-markdown-toc -->
 
@@ -110,4 +111,12 @@ El MSE se calcula tomando la diferencia al cuadrado entre cada valor real y pred
 El MSE es útil en situaciones donde los grandes errores son indeseables y la magnitud del error es importante. Sin embargo, como el RMSE, el MSE puede ser sensible a los valores atípicos (outliers).
 
 Por ejemplo, en el contexto de predecir los precios de las acciones, se preferiría un modelo con un MSE más pequeño porque esto resultaría en predicciones más precisas y posiblemente mejores resultados para los inversores.
+
+# Gradiente descendente
+
+Gradiente descendente (gradient descent en inglés) es un algoritmo iterativo de optimización utilizado en aprendizaje automático y otros modelos matemáticos para minimizar una función de coste ajustando los parámetros del modelo. Funciona calculando el gradiente (o la derivada) de la función de coste con respecto a los parámetros del modelo, y luego actualizando los parámetros en la dirección opuesta del gradiente para minimizar la función de coste.
+
+El gradiente es un vector que apunta en la dirección del mayor aumento en la función de coste, por lo que moverse en la dirección opuesta del gradiente te llevará al punto del mayor descenso. Es por eso que el gradiente descendente actualiza iterativamente los parámetros del modelo en la dirección opuesta del gradiente hasta que alcanza un mínimo local, donde la función de coste ya no se puede reducir.
+
+Existen diferentes variaciones del gradiente descendente, incluyendo el gradiente descendente por lotes (batch gradient descent), el gradiente descendente estocástico (stochastic gradient descent) y el gradiente descendente por mini-lotes (mini-batch gradient descent), cada uno con sus propias ventajas y desventajas. El gradiente descendente se utiliza ampliamente en el aprendizaje profundo (deep learning) y otros algoritmos de aprendizaje automático para optimizar modelos y mejorar su precisión.
 
