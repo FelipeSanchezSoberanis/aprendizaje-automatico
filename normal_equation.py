@@ -1,4 +1,5 @@
 import numpy as np
+import random_data_generator as rdg
 
 
 def normal_equation(x: np.ndarray, y: np.ndarray) -> np.ndarray:
@@ -8,8 +9,8 @@ def normal_equation(x: np.ndarray, y: np.ndarray) -> np.ndarray:
 
 def main():
     m = 150
-    x = 2 * np.random.rand(m, 1)
-    y = 3 + 4 * x + 1.5 * np.random.randn(m, 1)
+    x = rdg.generate_random_x(m)
+    y = rdg.generate_random_y_from_x(x)
     theta_final = normal_equation(x, y)
     print(theta_final)
 
