@@ -51,14 +51,12 @@ $$
 Obteniendo la derivada parcial para cada uno de los pesos:
 
 $$
-\frac{\partial XW}{\partial w_1}
-=
+\frac{\partial XW}{\partial w_1} =
 \begin{bmatrix}
     \frac{\partial(x_1 w_1 + x_4 w_2)}{\partial w_1} \\
     \frac{\partial(x_2 w_1 + x_5 w_2)}{\partial w_1} \\
     \frac{\partial(x_3 w_1 + x_6 w_2)}{\partial w_1} \\
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
     x_1 \\
     x_2 \\
@@ -67,14 +65,12 @@ $$
 $$
 
 $$
-\frac{\partial XW}{\partial w_2}
-=
+\frac{\partial XW}{\partial w_2} =
 \begin{bmatrix}
     \frac{\partial(x_1 w_1 + x_4 w_2)}{\partial w_2} \\
     \frac{\partial(x_2 w_1 + x_5 w_2)}{\partial w_2} \\
     \frac{\partial(x_3 w_1 + x_6 w_2)}{\partial w_2} \\
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
     x_4 \\
     x_5 \\
@@ -85,8 +81,7 @@ $$
 Lo que se puede simplificar a:
 
 $$
-\frac{\partial XW}{\partial w_1}
-=
+\frac{\partial XW}{\partial w_1} =
 X
 \begin{bmatrix}
     1 \\
@@ -95,8 +90,7 @@ X
 $$
 
 $$
-\frac{\partial XW}{\partial w_2}
-=
+\frac{\partial XW}{\partial w_2} =
 X
 \begin{bmatrix}
     0 \\
