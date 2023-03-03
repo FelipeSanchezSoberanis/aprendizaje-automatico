@@ -144,6 +144,12 @@ Desventajas:
 
 - Al utilizar MGD, ya que estamos tomando los registros en lotes, por lo que, podría suceder que en algunos lotes, tenemos algún error y en otros lotes, tenemos algún otro error. Por lo tanto, tendremos que controlar la tasa de aprendizaje por nosotros mismos, siempre que utilicemos MGD. Si la tasa de aprendizaje es muy baja, la tasa de convergencia también disminuirá. Si la tasa de aprendizaje es demasiado alta, no obtendremos un mínimo absoluto global o local. Así que tenemos que controlar la tasa de aprendizaje.
 
+En la siguiente gráfica se puede observar la diferencia del trayecto que los diferentes algoritmos toman para llegar al valor de error mínimo que son capaces de encontrar:
+
+![](media/gradient-descents-comparisons.png)
+
+Es importante hacer notar que el algoritmo más utilizado es el MGD, ya que es el punto medio entre precisión para encontrar el error mínimo y la cantidad de iteraciones para lograr esto.
+
 ## 3. Implementar en Python los algoritmos (a) Stochastic Gradient Descent y (b) Mini-batch Gradient Descent, en la solución de un problema de "nube de puntos artificial" siendo de particular interés la gráfica de la función costo vs. iteraciones. Comparar las soluciones con las obtenidas previamente en clase.
 
 ## 4. Investigar acerca del algoritmo "Polynomial Regression". ¿Cuándo se aplica?, ¿Qué problemas puede presentar una solución basada en este algoritmo?
