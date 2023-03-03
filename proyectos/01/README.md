@@ -4,7 +4,7 @@
 
 ## 2. Investigar acerca de las siguientes variantes del algoritmo: (a) Stochastic Gradient Descent y (b) Mini-batch Gradient Descent. ¿Cuáles son las diferencias y las ventajas/desventajas entre estas variantes? ¿Cuáles son las condiciones bajo las cuales se prefieren aplicar estas variantes?
 
-### Stochastic Gradient Descent
+### Stochastic gradient descent
 
 "Stochastic Gradient Descent" (SGD) es una variante del algoritmo de "Gradient Descent" utilizado para optimizar modelos de aprendizaje automático. En esta variante, sólo se utiliza un ejemplo de entrenamiento aleatorio para calcular el gradiente y actualizar los parámetros en cada iteración.
 
@@ -25,6 +25,26 @@ Desventajas:
 - Sensibilidad a la tasa de aprendizaje: La elección de la tasa de aprendizaje puede ser crítica en SGD, ya que utilizar una tasa de aprendizaje alta puede hacer que el algoritmo sobrepase el mínimo, mientras que una tasa de aprendizaje baja puede hacer que el algoritmo converja lentamente.
 
 - Menos preciso: Debido a las actualizaciones ruidosas, el SGD puede no converger al mínimo global exacto y dar lugar a una solución subóptima. Esto puede mitigarse utilizando técnicas como la programación de la tasa de aprendizaje y las actualizaciones basadas en el impulso.
+
+### Mini-batch gradient descent
+
+"Mini-batch Gradient Descent" (MGD) es una variación del algoritmo de "Gradient Descent" que divide el entrenamiento en pequeños lotes que son usados para calcular el modelo del error y actualizar los coeficientes. Esto quiere decir que, suponiendo que se tengan 1000 datos y un tamaño de lote definido de 50, se tomarán 50 datos al azar y se utilizarán para calcular el error y actualizar los coeficientes.
+
+Ventajas:
+
+- La frecuencia de actualización del modelo es mayor que en BGD: En MGD no estamos esperando los datos enteros, sólo pasamos 50 registros o 200 o 100 o 256, y luego pasamos a la optimización.
+
+- La dosificación permite tanto la eficiencia de no tener todos los datos de entrenamiento en memoria como la implementación de algoritmos. También controlamos el consumo de memoria para almacenar las errores de los datos.
+
+- Las actualizaciones por lotes proporcionan un proceso computacionalmente más eficiente que SGD.
+
+Desventajas:
+
+- No hay garantía de convergencia de un error de mejor manera.
+
+- Dado que el tamaño de muestra que tomamos no está representando las propiedades (o varianza) de conjuntos de datos enteros, no seremos capaces de obtener una convergencia es decir, no obtendremos mínimos absolutos globales o locales.
+
+- Al utilizar MGD, ya que estamos tomando los registros en lotes, por lo que, podría suceder que en algunos lotes, tenemos algún error y en otros lotes, tenemos algún otro error. Por lo tanto, tendremos que controlar la tasa de aprendizaje por nosotros mismos, siempre que utilicemos MGD. Si la tasa de aprendizaje es muy baja, la tasa de convergencia también disminuirá. Si la tasa de aprendizaje es demasiado alta, no obtendremos un mínimo absoluto global o local. Así que tenemos que controlar la tasa de aprendizaje.
 
 ## 3. Implementar en Python los algoritmos (a) Stochastic Gradient Descent y (b) Mini-batch Gradient Descent, en la solución de un problema de "nube de puntos artificial" siendo de particular interés la gráfica de la función costo vs. iteraciones. Comparar las soluciones con las obtenidas previamente en clase.
 
