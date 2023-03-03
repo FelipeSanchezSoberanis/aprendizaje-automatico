@@ -2,6 +2,110 @@
 
 ## 1. En clase se estudió el algoritmo "Batch Gradient Descent". Quedó pendiente mostrar el procedimiento de "vectorización" de la fórmula para actualizar los pesos; dicho procedimiento debe incluirse en el documento a entregar.
 
+Tomando en cuenta el gradiente de la función objetivo:
+
+$$
+\nabla \text{obj} = \sum_{i = 0}^{n} (\hat{y} - y) D(XW)
+$$
+
+donde D es la derivada de la matriz obtenida de la multiplicación de las matrices X, que son los datos observados, y W, que son los pesos.
+
+Esto quiere decir que, para cada epoch (iteración de entrenamiento), los pesos se actualizarán de la siguiente manera:
+
+$$
+w_j = w_j - \text{learning rate} \times \nabla \text{obj}_j
+$$
+
+Así que, en cada epoch, los pesos son actualizados en sentido contrario a la gradiente, es decir, hacia el mínimo; en un paso del tamaño definido por el "learning rate" (razón de aprendizaje).
+
+Para poder utilizar la forma de multiplicación matricial, se toman en cuenta, para ejemplificar, 2 matrices $X_{3x2}$ y $W_{2x1}$:
+
+$$
+X =
+    \begin{bmatrix}
+        x_1 & x_2 \\
+        x_3 & x_4 \\
+        x_5 & x_6 \\
+    \end{bmatrix}
+$$
+
+$$
+W =
+    \begin{bmatrix}
+        w_1  \\
+        w_2  \\
+    \end{bmatrix}
+$$
+
+Esto quiere decir que:
+
+$$
+XW =
+    \begin{bmatrix}
+        x_1 w_1 + x_4 w_2 \\
+        x_2 w_1 + x_5 w_2 \\
+        x_3 w_1 + x_6 w_2 \\
+    \end{bmatrix}
+$$
+
+Obteniendo la derivada parcial para cada uno de los pesos:
+
+$$
+\frac{\partial XW}{\partial w_1}
+=
+\begin{bmatrix}
+    \frac{\partial(x_1 w_1 + x_4 w_2)}{\partial w_1} \\
+    \frac{\partial(x_2 w_1 + x_5 w_2)}{\partial w_1} \\
+    \frac{\partial(x_3 w_1 + x_6 w_2)}{\partial w_1} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    x_1 \\
+    x_2 \\
+    x_3 \\
+\end{bmatrix}
+$$
+
+$$
+\frac{\partial XW}{\partial w_2}
+=
+\begin{bmatrix}
+    \frac{\partial(x_1 w_1 + x_4 w_2)}{\partial w_2} \\
+    \frac{\partial(x_2 w_1 + x_5 w_2)}{\partial w_2} \\
+    \frac{\partial(x_3 w_1 + x_6 w_2)}{\partial w_2} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    x_4 \\
+    x_5 \\
+    x_6 \\
+\end{bmatrix}
+$$
+
+Lo que se puede simplificar a:
+
+$$
+\frac{\partial XW}{\partial w_1}
+=
+X
+\begin{bmatrix}
+    1 \\
+    0 \\
+\end{bmatrix}
+$$
+
+$$
+\frac{\partial XW}{\partial w_2}
+=
+X
+\begin{bmatrix}
+    0 \\
+    1 \\
+\end{bmatrix}
+$$
+
+Esto quiere decir, que la derivada de todos los pesos puede ser calculada por medio de la utilización de una matriz con una diagonal unitaria de dimensión $(p+1 \times p+1)$.
+
 ## 2. Investigar acerca de las siguientes variantes del algoritmo: (a) Stochastic Gradient Descent y (b) Mini-batch Gradient Descent. ¿Cuáles son las diferencias y las ventajas/desventajas entre estas variantes? ¿Cuáles son las condiciones bajo las cuales se prefieren aplicar estas variantes?
 
 ### Stochastic gradient descent
