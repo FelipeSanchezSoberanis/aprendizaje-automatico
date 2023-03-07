@@ -10,13 +10,6 @@ def eval_poly(coeffs: np.ndarray, x: float) -> float:
     return total
 
 
-def diff_poly(coeffs: np.ndarray) -> list[float]:
-    diff_coeffs: list[float] = []
-    for i, coeff in enumerate(coeffs[:-1]):
-        diff_coeffs.append(coeff * (len(coeffs) - (i + 1)))
-    return diff_coeffs
-
-
 def gradient_descent(
     x_values: np.ndarray,
     y_values: np.ndarray,
