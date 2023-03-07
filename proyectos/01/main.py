@@ -41,7 +41,7 @@ def main():
     init_value, end_value = -10, 10
     data_size = end_value - init_value + 1
     no_weights = coeffs.size
-    iterations = 100
+    iterations = 1_000
     learning_rate = 0.05
 
     x_values = np.linspace(init_value, end_value, data_size).reshape(data_size, 1)
@@ -60,12 +60,14 @@ def main():
     plt.subplot(1, 2, 1)
     plt.plot(x_values, y_values, "b.", label="Input data")
     plt.plot(x_values, y_predicted, "r", label="Predicted data")
+    plt.title("x vs y")
     plt.xlabel("x")
     plt.ylabel("y")
     plt.legend()
 
     plt.subplot(1, 2, 2)
     plt.plot(range(iterations), error_log)
+    plt.title("iterations vs error")
     plt.xlabel("Iterations")
     plt.ylabel("Error")
 
