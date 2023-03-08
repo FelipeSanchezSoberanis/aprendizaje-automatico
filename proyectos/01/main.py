@@ -68,7 +68,7 @@ def main():
 
     #  === Stochastic ===
     stochastic_result_coeffs, stochastic_error_log = gradient_descent(
-        x_values, y_values, no_weights, LEARNING_RATE, ITERATIONS, batch_size=1
+        x_values, y_values, no_weights, 0.01, ITERATIONS, batch_size=1
     )
     stochastic_y_predicted = np.array(
         [eval_poly(stochastic_result_coeffs, x) for x in x_values]
