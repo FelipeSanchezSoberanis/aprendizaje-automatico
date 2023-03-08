@@ -92,7 +92,7 @@ def main():
         "Batch calculated result: {}".format(batch_result_coeffs.reshape(1, no_weights))
     )
     print(
-        "Stochastci calculated result: {}".format(
+        "Stochastic calculated result: {}".format(
             stochastic_result_coeffs.reshape(1, no_weights)
         )
     )
