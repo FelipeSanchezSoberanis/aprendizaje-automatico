@@ -152,6 +152,48 @@ Es importante hacer notar que el algoritmo más utilizado es el MGD, ya que es e
 
 ## 3. Implementar en Python los algoritmos (a) Stochastic Gradient Descent y (b) Mini-batch Gradient Descent, en la solución de un problema de "nube de puntos artificial" siendo de particular interés la gráfica de la función costo vs. iteraciones. Comparar las soluciones con las obtenidas previamente en clase.
 
+Debido a que la diferencia entre los 3 tipos de gradient descent es solo el tamaño del batch que se utiliza (todos los datos para batch, un subset de los datos para mini-batch y un solo dato para stochastic), se puede implementar una sola función de gradient descent que tome el tamaño del batch como un argumento, lo que nos permite poder generar los 3 tipos de gradient descent con una sola función y variando un solo argumento. La función que fue implementada, es la siguiente:
+
+https://github.com/FelipeSanchezSoberanis/aprendizaje-automatico/blob/672a6ceb7e85199eb89369558e4aff9108db6901/proyectos/01/main.py#L19-L51
+
+Los argumentos son los siguientes:
+- `x_values: np.ndarray`: Lista de valores de entrenamiento para el eje x.
+- `y_values: np.ndarray`: Lista de valores de entrenamiento para el eje y.
+- `no_weights: int`: Número de pesos que se desean calcular (este es un argumento que se pensaba utilizar para poder lograr que esta función pueda operar con cualquier polinomio, pero no se logró, por lo que, para el caso de esta tarea, siempre será 2).
+- `learning_rate: float`: Valor que define la tasa de aprendizaje.
+- `iterations: int`: Número de iteraciones que se desean llevar acabo.
+- `batch_size: int = -1`: El tamaño del lote que se desea utilizar. Si se tienen $n$ datos, este argumento tiene que cumplir que $0 <$ `batch_size` $<= n$. En caso de que `batch_size` $= 1$, se está utilizando stochastic gradient descent; en caso de que $0 <$ `batch_size` $< n$, se está utilizando mini-batch; y, en caso de que `batch_size` $= n$, se está utilizando batch.
+
+### Batch gradient descent
+
+Graficando el error contra las iteraciones:
+
+![](media/batch_iterations_vs_error.png)
+
+Graficando la línea generada por los pesos calculados por medio de batch gradient descent:
+
+![](media/batch_x_vs_y.png)
+
+### Stochastic gradient descent
+
+Graficando el error contra las iteraciones:
+
+![](media/stochastic_iterations_vs_error.png)
+
+Graficando la línea generada por los pesos calculados por medio de stochastic gradient descent:
+
+![](media/stochastic_x_vs_y.png)
+
+### Mini-batch gradient descent
+
+Graficando el error contra las iteraciones:
+
+![](media/mini-batch_iterations_vs_error.png)
+
+Graficando la línea generada por los pesos calculados por medio de mini-batch gradient descent:
+
+![](media/mini-batch_x_vs_y.png)
+
 ## 4. Investigar acerca del algoritmo "Polynomial Regression". ¿Cuándo se aplica?, ¿Qué problemas puede presentar una solución basada en este algoritmo?
 
 ## 5. Implementar en Python el algoritmo de "Polynomial Regression" para la solución de un conjunto (nube) de datos generados artificialmente (véase ejemplo de clase).
