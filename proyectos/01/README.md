@@ -164,6 +164,10 @@ Los argumentos son los siguientes:
 - `iterations: int`: Número de iteraciones que se desean llevar acabo.
 - `batch_size: int = -1`: El tamaño del lote que se desea utilizar. Si se tienen $n$ datos, este argumento tiene que cumplir que $0 <$ `batch_size` $<= n$. En caso de que `batch_size` $= 1$, se está utilizando stochastic gradient descent; en caso de que $0 <$ `batch_size` $< n$, se está utilizando mini-batch; y, en caso de que `batch_size` $= n$, se está utilizando batch.
 
+La función regresa:
+- `weights[::-1]`: Los pesos calculados por el algoritmo de gradient descent, en orden inverso, para que el orden sea el mismo que los utilizados para generar los datos.
+- `error_log`: Lista de datos que contiene el error en cada iteración que se llevó acabo durante el gradient descent.
+
 ### Batch gradient descent
 
 Graficando el error contra las iteraciones:
