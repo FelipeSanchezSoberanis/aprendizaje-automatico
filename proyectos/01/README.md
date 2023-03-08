@@ -168,6 +168,15 @@ La función regresa:
 - `weights[::-1]`: Los pesos calculados por el algoritmo de gradient descent, en orden inverso, para que el orden sea el mismo que los utilizados para generar los datos.
 - `error_log`: Lista de datos que contiene el error en cada iteración que se llevó acabo durante el gradient descent.
 
+Ejemplo de los pesos calculados por cada uno de los algoritmos:
+
+```
+Expected result: [ 2 15]
+Batch calculated result: [[ 1.94122078 14.5147619 ]]
+Stochastic calculated result: [[ 1.92137124 14.36876258]]
+Mini-batch calculated result: [[ 1.9044044  14.54863948]]
+```
+
 ### Batch gradient descent
 
 Graficando el error contra las iteraciones:
