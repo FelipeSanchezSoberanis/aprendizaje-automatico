@@ -161,12 +161,12 @@ Los argumentos son los siguientes:
 - `y_values: np.ndarray`: Lista de valores de entrenamiento para el eje y.
 - `no_weights: int`: Número de pesos que se desean calcular (este es un argumento que se pensaba utilizar para poder lograr que esta función pueda operar con cualquier polinomio, pero no se logró, por lo que, para el caso de esta tarea, siempre será 2).
 - `learning_rate: float`: Valor que define la tasa de aprendizaje.
-- `iterations: int`: Número de iteraciones que se desean llevar acabo.
+- `iterations: int`: Número de iteraciones que se desean llevar a cabo.
 - `batch_size: int = -1`: El tamaño del lote que se desea utilizar. Si se tienen $n$ datos, este argumento tiene que cumplir que $0 <$ `batch_size` $<= n$. En caso de que `batch_size` $= 1$, se está utilizando stochastic gradient descent; en caso de que $0 <$ `batch_size` $< n$, se está utilizando mini-batch; y, en caso de que `batch_size` $= n$, se está utilizando batch.
 
 La función regresa:
 - `weights[::-1]`: Los pesos calculados por el algoritmo de gradient descent, en orden inverso, para que el orden sea el mismo que los utilizados para generar los datos.
-- `error_log`: Lista de datos que contiene el error en cada iteración que se llevó acabo durante el gradient descent.
+- `error_log`: Lista de datos que contiene el error en cada iteración que se llevó a cabo durante el gradient descent.
 
 Ejemplo de los pesos calculados por cada uno de los algoritmos:
 
