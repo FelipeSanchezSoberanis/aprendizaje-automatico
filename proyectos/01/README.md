@@ -5,7 +5,7 @@
 Tomando en cuenta el gradiente de la función objetivo:
 
 $$
-\nabla \text{obj} = \sum_{i = 0}^{n} (\hat{y} - y) D(XW)
+\nabla \text{obj} = \frac{1}{n} \sum_{i = 0}^{n} (\hat{y} - y) D(XW)
 $$
 
 donde D es la derivada de la matriz obtenida de la multiplicación de las matrices X, que son los datos observados, y W, que son los pesos.
