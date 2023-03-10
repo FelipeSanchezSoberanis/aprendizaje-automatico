@@ -12,6 +12,7 @@
     * [Error cuadrático medio](#error-cuadrático-medio)
 * [Gradiente descendente](#gradiente-descendente)
 * [Regresión logística](#regresión-logística)
+    * [Modelo](#modelo)
 
 <!-- vim-markdown-toc -->
 
@@ -130,4 +131,36 @@ El modelo de regresión logística utiliza una función logística (también lla
 La regresión logística puede utilizarse tanto para resultados binarios como multinomiales (es decir, más de dos categorías). En la regresión logística binaria, la variable de respuesta sólo toma dos valores, como "éxito" o "fracaso", "sí" o "no", "0" o "1", etc. En la regresión logística multinomial, la variable de respuesta toma más de dos categorías, como ingresos "bajos", "medios" o "altos".
 
 La regresión logística puede utilizarse para diversas aplicaciones, como predecir si un cliente comprará o no un producto, predecir si un estudiante aprobará o no un examen o predecir la probabilidad de que un paciente padezca una determinada enfermedad en función de su historial médico.
+
+## Modelo
+
+Se desea
+
+$$
+h_\theta(x) = g(\theta^T \cdot x)
+$$
+
+donde $g$ es la función sigmoide.
+
+$$
+g(z) = \frac{1}{1 + e^{-z}}
+$$
+
+$$
+h_\theta(x) = \frac{1}{1 + e^{-\theta^{T} \cdot x}}
+$$
+
+donde $h_\theta(x)$ es la probabilidad de que $y=1$ para la entrada $x$.
+
+Después, se pasa por lo siguiente:
+
+$$
+\hat{y} =
+\left\{
+    \begin{matrix}[l]
+        1, & h_\theta(x) >= 0.5 \\
+        0, & h_\theta(x) < 0.5 \\
+    \end{matrix}
+\right.
+$$
 
