@@ -11,6 +11,7 @@
     * [Error cuadrático medio con raiz](#error-cuadrático-medio-con-raiz)
     * [Error cuadrático medio](#error-cuadrático-medio)
 * [Gradiente descendente](#gradiente-descendente)
+* [Regresión logística](#regresión-logística)
 
 <!-- vim-markdown-toc -->
 
@@ -119,4 +120,14 @@ Gradiente descendente (gradient descent en inglés) es un algoritmo iterativo de
 El gradiente es un vector que apunta en la dirección del mayor aumento en la función de coste, por lo que moverse en la dirección opuesta del gradiente te llevará al punto del mayor descenso. Es por eso que el gradiente descendente actualiza iterativamente los parámetros del modelo en la dirección opuesta del gradiente hasta que alcanza un mínimo local, donde la función de coste ya no se puede reducir.
 
 Existen diferentes variaciones del gradiente descendente, incluyendo el gradiente descendente por lotes (batch gradient descent), el gradiente descendente estocástico (stochastic gradient descent) y el gradiente descendente por mini-lotes (mini-batch gradient descent), cada uno con sus propias ventajas y desventajas. El gradiente descendente se utiliza ampliamente en el aprendizaje profundo (deep learning) y otros algoritmos de aprendizaje automático para optimizar modelos y mejorar su precisión.
+
+# Regresión logística
+
+La regresión logística es un método estadístico utilizado para modelizar la probabilidad de un resultado binario (es decir, una variable dicotómica que sólo puede tomar dos valores posibles) en función de una o más variables predictoras. Es un tipo de análisis de regresión utilizado habitualmente en campos como el aprendizaje automático, la estadística y las ciencias sociales.
+
+El modelo de regresión logística utiliza una función logística (también llamada función sigmoidea) para estimar la probabilidad de una variable de respuesta binaria, dados los valores de las variables predictoras. La función logística es una curva en forma de S que asigna cualquier valor de entrada a un valor de probabilidad entre 0 y 1.
+
+La regresión logística puede utilizarse tanto para resultados binarios como multinomiales (es decir, más de dos categorías). En la regresión logística binaria, la variable de respuesta sólo toma dos valores, como "éxito" o "fracaso", "sí" o "no", "0" o "1", etc. En la regresión logística multinomial, la variable de respuesta toma más de dos categorías, como ingresos "bajos", "medios" o "altos".
+
+La regresión logística puede utilizarse para diversas aplicaciones, como predecir si un cliente comprará o no un producto, predecir si un estudiante aprobará o no un examen o predecir la probabilidad de que un paciente padezca una determinada enfermedad en función de su historial médico.
 
