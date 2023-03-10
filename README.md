@@ -157,10 +157,10 @@ Después, se pasa por lo siguiente:
 $$
 \hat{y} =
 \left\{
-    \begin{matrix}
+    \begin{matrix*}[l]
         1, & h_\theta(x) >= 0.5 \\
         0, & h_\theta(x) < 0.5 \\
-    \end{matrix}
+    \end{matrix*}
 \right.
 $$
 
