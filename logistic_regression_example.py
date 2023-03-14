@@ -9,6 +9,12 @@ def sigmoid_array(z: np.ndarray) -> np.ndarray:
 
 
 def main():
+    example_library()
+    example_manual()
+    plt.show()
+
+
+def example_library():
     iris = datasets.load_iris()
     iris_target: np.ndarray = iris["target"]  # type: ignore
     X: np.ndarray = iris["data"][:, 3:]  # type: ignore
@@ -21,6 +27,7 @@ def main():
     y_proba = model.predict_proba(X_new)
     decision_boundary = X_new[y_proba[:, 1] >= 0.5][0]
 
+    plt.subplot(2, 1, 1)
     plt.plot(X[y == 0], y[y == 0], "bs")
     plt.plot(X[y == 1], y[y == 1], "g^")
     plt.plot([decision_boundary, decision_boundary], [-1, 2], "k:")
@@ -30,10 +37,11 @@ def main():
     plt.xlabel("Probability")
     plt.axis([0, 3, -0.02, 1.02])
     plt.legend()
-    plt.show()
+    plt.title("Example using library function")
+    #  plt.show()
 
 
-def temp_main():
+def example_manual():
     iris = datasets.load_iris()
     iris_target: np.ndarray = iris["target"]  # type: ignore
     X: np.ndarray = iris["data"][:, 3:]  # type: ignore
@@ -58,6 +66,7 @@ def temp_main():
     y_proba = sigmoid_array(theta.T @ X_new_c.T)
     decision_boundary = X_new[y_proba.reshape(-1, 1) >= 0.5][0]
 
+    plt.subplot(2, 1, 2)
     plt.plot(X[y == 0], y[y == 0], "bs")
     plt.plot(X[y == 1], y[y == 1], "g^")
     plt.plot([decision_boundary, decision_boundary], [-1, 2], "k:")
@@ -67,7 +76,8 @@ def temp_main():
     plt.xlabel("Probability")
     plt.axis([0, 3, -0.02, 1.02])
     plt.legend()
-    plt.show()
+    plt.title("Example using gradient descent manually")
+    #  plt.show()
 
 
 if __name__ == "__main__":
