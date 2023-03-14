@@ -1,4 +1,5 @@
 from sklearn import datasets
+from sklearn.linear_model import LogisticRegression  # type: ignore
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -8,6 +9,31 @@ def sigmoid_array(z: np.ndarray) -> np.ndarray:
 
 
 def main():
+    iris = datasets.load_iris()
+    iris_target: np.ndarray = iris["target"]  # type: ignore
+    X: np.ndarray = iris["data"][:, 3:]  # type: ignore
+    y: np.ndarray = (iris_target == 2).astype(int).reshape(len(iris_target), 1)
+
+    model = LogisticRegression(C=10**10)
+    model.fit(X, y.ravel())
+
+    X_new = np.linspace(0, 3, 1_000).reshape(-1, 1)
+    y_proba = model.predict_proba(X_new)
+    decision_boundary = X_new[y_proba[:, 1] >= 0.5][0]
+
+    plt.plot(X[y == 0], y[y == 0], "bs")
+    plt.plot(X[y == 1], y[y == 1], "g^")
+    plt.plot([decision_boundary, decision_boundary], [-1, 2], "k:")
+    plt.plot(X_new, y_proba[:, 1], "g-", label="Iris virginica")
+    plt.plot(X_new, 1 - y_proba[:, 1], "b--", label="Not iris virginica")
+    plt.xlabel("X")
+    plt.xlabel("Probability")
+    plt.axis([0, 3, -0.02, 1.02])
+    plt.legend()
+    plt.show()
+
+
+def temp_main():
     iris = datasets.load_iris()
     iris_target: np.ndarray = iris["target"]  # type: ignore
     X: np.ndarray = iris["data"][:, 3:]  # type: ignore
