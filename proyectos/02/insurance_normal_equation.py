@@ -86,7 +86,7 @@ def main():
 
     insurance_df = prepare_data(insurance_df)
 
-    training_data_percentage = 0.993
+    training_data_percentage = 0.9
     training_data, testing_data = get_train_test_data(
         insurance_df, training_data_percentage
     )
