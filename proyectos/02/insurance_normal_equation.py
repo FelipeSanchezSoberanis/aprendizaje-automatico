@@ -51,11 +51,12 @@ def separate_data(data: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 
 def log_results(predicted_data_y: np.ndarray, testing_data_y: np.ndarray) -> None:
     cols = ["Expected", "Calculated", "Error percentage"]
-    data = []
+    data: list[list] = []
     for i in range(predicted_data_y.shape[0]):
         expected_value = testing_data_y[i, 0]
         calculated_value = predicted_data_y[i, 0]
         error_percentage = expected_value / calculated_value * 100
+
         data.append([expected_value, calculated_value, error_percentage])
     with open(
         os.path.join(PROYECT_HOME, "results", "insurance_normal_equation"), "w"
