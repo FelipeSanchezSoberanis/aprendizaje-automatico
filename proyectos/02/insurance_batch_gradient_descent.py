@@ -3,8 +3,13 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 from tabulate import tabulate
+import logging
 
 PROYECT_HOME = os.path.join("proyectos", "02")
+
+
+logging.basicConfig(level=logging.INFO)
+logging.disable()
 
 
 def add_ones_col(x: np.ndarray) -> np.ndarray:
@@ -56,7 +61,7 @@ def log_results(predicted_data_y: np.ndarray, testing_data_y: np.ndarray) -> Non
         data.append([expected_value, calculated_value, error_percentage])
 
     with open(
-        os.path.join(PROYECT_HOME, "results", "insurance_normal_equation"), "w"
+        os.path.join(PROYECT_HOME, "results", "insurance_batch_gradient_descent"), "w"
     ) as file:
         file.write(tabulate(data, headers=cols, tablefmt="grid"))
 
@@ -81,7 +86,22 @@ def batch_gradient_descent(
     iterations: int,
     learning_rate: float,
 ) -> np.ndarray:
-    theta = np.array([])
+    training_data_x_c = add_ones_col(training_data_x)
+    theta = np.random.randn(training_data_x_c.shape[1], 1)
+    n = training_data_x_c.shape[0]
+
+    for _ in range(iterations):
+        multi = training_data_x_c @ theta - training_data_y
+        gradients = (((1 / n) * learning_rate) * training_data_x_c.T) @ multi
+
+        logging.info(f"training_data_x_c shape: {training_data_x_c.shape}")
+        logging.info(f"theta shape: {theta.shape}")
+        logging.info(f"training_data_y shape: {training_data_y.shape}")
+        logging.info(f"multi shape: {multi.shape}")
+        logging.info(f"gradients shape: {gradients.shape}")
+
+        theta -= gradients
+
     return theta
 
 
@@ -91,7 +111,7 @@ def main():
 
     insurance_df = prepare_data(insurance_df)
 
-    training_data_percentage = 0.993
+    training_data_percentage = 0.9
     training_data, testing_data = get_train_test_data(
         insurance_df, training_data_percentage
     )
@@ -99,7 +119,7 @@ def main():
     training_data_x, training_data_y = separate_data(training_data)
     testing_data_x, testing_data_y = separate_data(testing_data)
 
-    learning_rate = 0.05
+    learning_rate = 0.0007
     iterations = 10_000
     theta = batch_gradient_descent(
         training_data_x, training_data_y, iterations, learning_rate
