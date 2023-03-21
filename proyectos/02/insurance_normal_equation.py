@@ -99,6 +99,9 @@ def main():
     testing_data_x_c = add_ones_col(testing_data_x)
     predicted_data_y = testing_data_x_c @ theta
 
+    average_error = np.sum(np.abs(predicted_data_y - testing_data_y)) / training_data_y.shape[0]  # type: ignore
+    print(f"Average error for normal equation: {average_error}")
+
     log_results(predicted_data_y, testing_data_y)
     plot_results(predicted_data_y, testing_data_y, training_data_percentage)
 
