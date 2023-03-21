@@ -73,7 +73,7 @@ def plot_results(
 ) -> None:
     plt.plot(testing_data_y, predicted_data_y, ".")
     plt.title(
-        f"Correct y value vs calculated y value ({training_data_percentage*100} % as training data)"
+        f"Normal equation: correct y value vs calculated y value ({training_data_percentage*100} % as training data)"
     )
     plt.xlabel("Correct y value")
     plt.ylabel("Predicted y value")
