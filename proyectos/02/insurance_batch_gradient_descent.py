@@ -4,13 +4,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 from tabulate import tabulate
-import logging
 
 PROYECT_HOME = os.path.join("proyectos", "02")
-
-
-logging.basicConfig(level=logging.INFO)
-logging.disable()
 
 
 def add_ones_col(x: np.ndarray) -> np.ndarray:
@@ -94,13 +89,6 @@ def batch_gradient_descent(
     for _ in range(iterations):
         multi = training_data_x_c @ theta - training_data_y
         gradients = (((1 / n) * learning_rate) * training_data_x_c.T) @ multi
-
-        logging.info(f"training_data_x_c shape: {training_data_x_c.shape}")
-        logging.info(f"theta shape: {theta.shape}")
-        logging.info(f"training_data_y shape: {training_data_y.shape}")
-        logging.info(f"multi shape: {multi.shape}")
-        logging.info(f"gradients shape: {gradients.shape}")
-
         theta -= gradients
 
     return theta
