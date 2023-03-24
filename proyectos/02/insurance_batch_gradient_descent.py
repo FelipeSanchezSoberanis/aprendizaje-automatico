@@ -1,47 +1,17 @@
 import time
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 import os
-from tabulate import tabulate
 from insurance_normal_equation import (
     add_ones_col,
     prepare_data,
     get_train_test_data,
     separate_data,
+    log_results,
+    plot_results,
+    Methods,
     PROYECT_HOME,
 )
-
-
-def log_results(predicted_data_y: np.ndarray, testing_data_y: np.ndarray) -> None:
-    cols = ["Expected", "Calculated", "Error percentage"]
-    data: list[list] = []
-
-    for i in range(predicted_data_y.shape[0]):
-        expected_value = testing_data_y[i, 0]
-        calculated_value = predicted_data_y[i, 0]
-        error_percentage = expected_value / calculated_value * 100
-
-        data.append([expected_value, calculated_value, error_percentage])
-
-    with open(
-        os.path.join(PROYECT_HOME, "results", "insurance_batch_gradient_descent"), "w"
-    ) as file:
-        file.write(tabulate(data, headers=cols, tablefmt="grid"))
-
-
-def plot_results(
-    predicted_data_y: np.ndarray,
-    testing_data_y: np.ndarray,
-    training_data_percentage: float,
-) -> None:
-    plt.plot(testing_data_y, predicted_data_y, ".")
-    plt.title(
-        f"Batch gradient descent: correct y value vs predicted y value ({training_data_percentage*100} % as training data)"
-    )
-    plt.xlabel("Correct y value")
-    plt.ylabel("Predicted y value")
-    plt.show()
 
 
 def batch_gradient_descent(
@@ -94,8 +64,13 @@ def main():
         f"Average error for batch gradient descent: {average_error}. (Learning rate: {learning_rate}. Iterations: {iterations})"
     )
 
-    log_results(predicted_data_y, testing_data_y)
-    plot_results(predicted_data_y, testing_data_y, training_data_percentage)
+    log_results(predicted_data_y, testing_data_y, Methods.BATCH_GRADIENT_DESCENT)
+    plot_results(
+        predicted_data_y,
+        testing_data_y,
+        training_data_percentage,
+        Methods.BATCH_GRADIENT_DESCENT,
+    )
 
 
 if __name__ == "__main__":
