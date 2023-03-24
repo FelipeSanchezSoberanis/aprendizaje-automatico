@@ -4,45 +4,13 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 from tabulate import tabulate
-
-PROYECT_HOME = os.path.join("proyectos", "02")
-
-
-def add_ones_col(x: np.ndarray) -> np.ndarray:
-    return np.append(np.ones((x.shape[0], 1)), x, axis=1)
-
-
-def prepare_data(insurance_df: pd.DataFrame) -> pd.DataFrame:
-    # sex: male = 1, female = 0
-    insurance_df["sex"] = np.where(insurance_df["sex"] == "male", 1, 0)
-
-    # smoker: yes = 1, no = 0
-    insurance_df["smoker"] = np.where(insurance_df["smoker"] == "yes", 1, 0)
-
-    # field region: northeast: 0, northwest: 1, southeast: 2,  southwest: 3
-    region_map = {"northeast": 0, "northwest": 1, "southeast": 2, "southwest": 3}
-    insurance_df["region"] = insurance_df["region"].map(region_map)
-
-    return insurance_df
-
-
-def get_train_test_data(
-    insurace_df: pd.DataFrame, training_data_percentage: float
-) -> tuple[np.ndarray, np.ndarray]:
-    no_points = insurace_df.shape[0]
-
-    no_training_points = int(training_data_percentage * no_points)
-
-    insurace_df_numpy = insurace_df.to_numpy()
-
-    training_points = insurace_df_numpy[0:no_training_points]
-    testing_points = insurace_df_numpy[no_training_points:]
-
-    return training_points, testing_points
-
-
-def separate_data(data: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    return data[:, :-1], data[:, data.shape[1] - 1].reshape(-1, 1)
+from insurance_normal_equation import (
+    add_ones_col,
+    prepare_data,
+    get_train_test_data,
+    separate_data,
+    PROYECT_HOME,
+)
 
 
 def log_results(predicted_data_y: np.ndarray, testing_data_y: np.ndarray) -> None:

@@ -1,3 +1,4 @@
+from enum import Enum
 import time
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,6 +7,16 @@ import os
 from tabulate import tabulate
 
 PROYECT_HOME = os.path.join("proyectos", "02")
+
+
+class Methods(Enum):
+    """
+    Enum for easier identification of conditionals in the code, regarding
+    methods used.
+    """
+
+    NORMAL_EQUATION = "ne"
+    BATCH_GRADIENT_DESCENT = "bgd"
 
 
 def add_ones_col(x: np.ndarray) -> np.ndarray:
@@ -108,13 +119,17 @@ def separate_data(data: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return data[:, :-1], data[:, data.shape[1] - 1].reshape(-1, 1)
 
 
-def log_results(predicted_data_y: np.ndarray, testing_data_y: np.ndarray) -> None:
+def log_results(
+    predicted_data_y: np.ndarray, testing_data_y: np.ndarray, method: Methods
+) -> None:
     """
     Logs the expected, calculated and error percentage to a file.
 
     Parameters:
     - predicted_data_y (np.ndarray): Predicted output values.
     - testing_data_y (np.ndarray): Expected output values.
+    - method (Methods): Defines which method was used, to define where to write
+      the ouput.
     """
 
     cols = ["Expected", "Calculated", "Error percentage"]
@@ -127,16 +142,24 @@ def log_results(predicted_data_y: np.ndarray, testing_data_y: np.ndarray) -> Non
 
         data.append([expected_value, calculated_value, error_percentage])
 
-    with open(
-        os.path.join(PROYECT_HOME, "results", "insurance_normal_equation"), "w"
-    ) as file:
-        file.write(tabulate(data, headers=cols, tablefmt="grid"))
+    if method == Methods.NORMAL_EQUATION:
+        with open(
+            os.path.join(PROYECT_HOME, "results", "insurance_normal_equation"), "w"
+        ) as file:
+            file.write(tabulate(data, headers=cols, tablefmt="grid"))
+    elif method == Methods.BATCH_GRADIENT_DESCENT:
+        with open(
+            os.path.join(PROYECT_HOME, "results", "insurance_batch_gradient_descent"),
+            "w",
+        ) as file:
+            file.write(tabulate(data, headers=cols, tablefmt="grid"))
 
 
 def plot_results(
     predicted_data_y: np.ndarray,
     testing_data_y: np.ndarray,
     training_data_percentage: float,
+    method: Methods,
 ) -> None:
     """
     Plots the resulting graph obtained by comparing the calculated values to
@@ -146,12 +169,21 @@ def plot_results(
     - predicted_data_y (np.ndarray): Calculated data.
     - testing_data_y (np.ndarray): Expected data.
     - training_data_percentage (float): Percentage used for training.
+    - method (Methods): Defines which method was used, for writing the plot
+      title.
     """
 
     plt.plot(testing_data_y, predicted_data_y, ".")
-    plt.title(
-        f"Normal equation: correct y value vs calculated y value ({training_data_percentage*100} % as training data)"
-    )
+
+    if method == Methods.NORMAL_EQUATION:
+        plt.title(
+            f"Normal equation: correct y value vs calculated y value ({training_data_percentage*100} % as training data)"
+        )
+    elif method == Methods.BATCH_GRADIENT_DESCENT:
+        plt.title(
+            f"Batch gradient descent: correct y value vs calculated y value ({training_data_percentage*100} % as training data)"
+        )
+
     plt.xlabel("Correct y value")
     plt.ylabel("Predicted y value")
     plt.show()
@@ -182,8 +214,13 @@ def main():
     print(f"Normal equation took {(end_time - start_time) * 1000} ms")
     print(f"Average error for normal equation: {average_error}")
 
-    log_results(predicted_data_y, testing_data_y)
-    plot_results(predicted_data_y, testing_data_y, training_data_percentage)
+    log_results(predicted_data_y, testing_data_y, Methods.NORMAL_EQUATION)
+    plot_results(
+        predicted_data_y,
+        testing_data_y,
+        training_data_percentage,
+        Methods.NORMAL_EQUATION,
+    )
 
 
 if __name__ == "__main__":
