@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -121,14 +122,18 @@ def main():
 
     learning_rate = 0.0007
     iterations = 10_000
+
+    start_time = time.perf_counter()
     theta = batch_gradient_descent(
         training_data_x, training_data_y, iterations, learning_rate
     )
+    end_time = time.perf_counter()
 
     testing_data_x_c = add_ones_col(testing_data_x)
     predicted_data_y = testing_data_x_c @ theta
 
     average_error = np.sum(np.abs(predicted_data_y - testing_data_y)) / training_data_y.shape[0]  # type: ignore
+    print(f"Batch gradient descent took {(end_time - start_time) * 1000} ms")
     print(
         f"Average error for batch gradient descent: {average_error}. (Learning rate: {learning_rate}. Iterations: {iterations})"
     )

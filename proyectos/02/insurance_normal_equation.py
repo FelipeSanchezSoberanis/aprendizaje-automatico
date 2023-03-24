@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -94,12 +95,15 @@ def main():
     training_data_x, training_data_y = separate_data(training_data)
     testing_data_x, testing_data_y = separate_data(testing_data)
 
+    start_time = time.perf_counter()
     theta = normal_equation(training_data_x, training_data_y)
+    end_time = time.perf_counter()
 
     testing_data_x_c = add_ones_col(testing_data_x)
     predicted_data_y = testing_data_x_c @ theta
 
     average_error = np.sum(np.abs(predicted_data_y - testing_data_y)) / training_data_y.shape[0]  # type: ignore
+    print(f"Normal equation took {(end_time - start_time) * 1000} ms")
     print(f"Average error for normal equation: {average_error}")
 
     log_results(predicted_data_y, testing_data_y)
