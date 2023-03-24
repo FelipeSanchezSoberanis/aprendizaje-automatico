@@ -20,6 +20,20 @@ def batch_gradient_descent(
     iterations: int,
     learning_rate: float,
 ) -> np.ndarray:
+    """
+    Calculates an array of weights using the batch gradient descent algorithm
+    with a specified learning rate and number of iterations.
+
+    Parameters:
+    - training_data_x (np.ndarray): Training multivariable input array.
+    - training_data_y (np.ndarray): Training ouput array.
+    - iterations (int): Number of iterations to be used.
+    - learning_rate (float): Learning rate to be used.
+
+    Returns:
+    - np.ndarray: Array of weights.
+    """
+
     training_data_x_c = add_ones_col(training_data_x)
     theta = np.random.randn(training_data_x_c.shape[1], 1)
     n = training_data_x_c.shape[0]
