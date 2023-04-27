@@ -49,10 +49,10 @@ def main():
                 f"Probability that input {x} is of class {model_name}: {probability[0, 0]}"
             )
 
-        predicted = max(probabilites, key=lambda x: probabilites[x])
-        logging.info(f"Max probabilty is for class {predicted}")
+        predicted_class = max(probabilites, key=lambda x: probabilites[x])
+        logging.info(f"Max probabilty is for class {predicted_class}")
 
-        if predicted == targets[y]:
+        if predicted_class == targets[y]:
             success.append(True)
         else:
             success.append(False)
