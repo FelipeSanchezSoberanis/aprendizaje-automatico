@@ -1,8 +1,12 @@
-import matplotlib.pyplot as plt
-import random
+import datetime
+import time
+from sklearn.linear_model import LogisticRegression
+import pickle
+import os
 
+CACHE_DIR = "cache"
 
-targets: dict[int, str] = {
+TARGETS: dict[int, str] = {
     0: "t-shirt/top",
     1: "trouser",
     2: "pullover",
@@ -35,14 +39,43 @@ def load_mnist(path, kind="train"):
     return images, labels
 
 
-def main():
-    x_train, y_train = load_mnist("fashion-mnist/data/fashion/", kind="train")
-    x_test, y_test = load_mnist("fashion-mnist/data/fashion", kind="t10k")
+def create_or_load_model() -> LogisticRegression:
+    filePath = os.path.join(CACHE_DIR, "fashion_mnist")
+    if os.path.isfile(filePath):
+        return pickle.load(open(filePath, "rb"))
 
-    i = random.randint(0, x_train.shape[0])
-    plt.imshow(x_train[i].reshape(28, 28), cmap="gray")
-    plt.title(f"This is a {targets.get(y_train[i])}")
-    plt.show()
+    x_train, y_train = load_mnist("fashion-mnist/data/fashion/", kind="train")
+
+    x_train = x_train / 255
+
+    model = LogisticRegression(multi_class="ovr", max_iter=10**10)
+    model.fit(x_train, y_train)
+
+    pickle.dump(model, open(filePath, "wb"))
+
+    return model
+
+
+def main():
+    start = time.perf_counter()
+    model = create_or_load_model()
+    end = time.perf_counter()
+
+    print(f"Model training took {datetime.timedelta(seconds=(end - start))}")
+
+    x_test, y_test = load_mnist("fashion-mnist/data/fashion", kind="t10k")
+    x_test = x_test / 255
+
+    y_predicted = model.predict(x_test)
+
+    success_log: list[bool] = []
+    for predicted, expected in zip(y_predicted, y_test):
+        if predicted == expected:
+            success_log.append(True)
+        else:
+            success_log.append(False)
+
+    print(f"Success rate: {success_log.count(True)  / len(success_log)}")
 
 
 if __name__ == "__main__":
