@@ -6,6 +6,7 @@ import numpy as np
 import logging
 
 logging.basicConfig(level=logging.INFO)
+logging.disable()
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
     targets: dict[int, str] = {k: v for k, v in enumerate(target_names)}
 
     train_test_arrays: list[np.ndarray] = train_test_split(
-        x_data, y_data, train_size=0.9
+        x_data, y_data
     )  # type:ignore
     x_train, x_test, y_train, y_test = train_test_arrays
 
@@ -32,7 +33,7 @@ def main():
         helper_array = np.ones((len(y_data), 1)).flatten() * target_value
         y_train_mapped = np.array(list(map(one_vs_all_filter, y_train, helper_array)))
 
-        model = LogisticRegression()
+        model = LogisticRegression(C=10**10)
         model.fit(x_train, y_train_mapped)
 
         models[target_name] = model
@@ -43,7 +44,7 @@ def main():
 
         for model_name, model in models.items():
             probability = model.predict_proba(x.reshape(1, -1))
-            probabilites[model_name] = probability[0, 0]
+            probabilites[model_name] = probability[0, 1]
 
             logging.info(
                 f"Probability that input {x} is of class {model_name}: {probability[0, 0]}"
