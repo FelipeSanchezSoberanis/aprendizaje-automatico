@@ -73,14 +73,12 @@ def create_or_load_model(
 
 
 def main():
+    x_test, y_test = load_mnist("fashion-mnist/data/fashion", kind="t10k")
+    x_test = x_test / 255
+
     start = time.perf_counter()
     model = create_or_load_model(Models.LR, force_train=True)
     end = time.perf_counter()
-
-    print(f"Model training took {datetime.timedelta(seconds=(end - start))}")
-
-    x_test, y_test = load_mnist("fashion-mnist/data/fashion", kind="t10k")
-    x_test = x_test / 255
 
     y_predicted = model.predict(x_test)
 
@@ -91,7 +89,32 @@ def main():
         else:
             success_log.append(False)
 
-    print(f"Success rate: {success_log.count(True)  / len(success_log)}")
+    print(
+        f"LogisticRegression model's training took {datetime.timedelta(seconds=(end - start))}"
+    )
+    print(
+        f"LogisticRegression model's success rate: {success_log.count(True)  / len(success_log)}"
+    )
+
+    start = time.perf_counter()
+    model = create_or_load_model(Models.SGDC, force_train=True)
+    end = time.perf_counter()
+
+    y_predicted = model.predict(x_test)
+
+    success_log: list[bool] = []
+    for predicted, expected in zip(y_predicted, y_test):
+        if predicted == expected:
+            success_log.append(True)
+        else:
+            success_log.append(False)
+
+    print(
+        f"SGDClassifier model's training took {datetime.timedelta(seconds=(end - start))}"
+    )
+    print(
+        f"SGDClassifier model's success rate: {success_log.count(True)  / len(success_log)}"
+    )
 
 
 if __name__ == "__main__":
