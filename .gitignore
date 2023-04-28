@@ -6,4 +6,5 @@ share/
 __pycache__/
 pyrightconfig.json
 .ipynb_checkpoints/
+fashion-mnist/
 
