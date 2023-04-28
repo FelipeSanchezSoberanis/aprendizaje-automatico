@@ -1,6 +1,7 @@
 import datetime
+from enum import Enum
 import time
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, SGDClassifier
 import pickle
 import os
 
@@ -18,6 +19,11 @@ TARGETS: dict[int, str] = {
     8: "bag",
     9: "ankle boot",
 }
+
+
+class Models(Enum):
+    SGDC = 1
+    LR = 2
 
 
 def load_mnist(path, kind="train"):
@@ -39,16 +45,26 @@ def load_mnist(path, kind="train"):
     return images, labels
 
 
-def create_or_load_model() -> LogisticRegression:
+def create_or_load_model(
+    selected_model: Models, force_train: bool = False
+) -> LogisticRegression | SGDClassifier:
     filePath = os.path.join(CACHE_DIR, "fashion_mnist")
-    if os.path.isfile(filePath):
+    if not force_train and os.path.isfile(filePath):
         return pickle.load(open(filePath, "rb"))
 
     x_train, y_train = load_mnist("fashion-mnist/data/fashion/", kind="train")
 
     x_train = x_train / 255
 
-    model = LogisticRegression(multi_class="ovr", max_iter=10**10)
+    model: SGDClassifier | LogisticRegression | None = None
+    if selected_model == Models.SGDC:
+        model = SGDClassifier()
+    elif selected_model == Models.LR:
+        model = LogisticRegression(multi_class="ovr", max_iter=10**10)
+
+    if model is None:
+        raise Exception
+
     model.fit(x_train, y_train)
 
     pickle.dump(model, open(filePath, "wb"))
@@ -58,7 +74,7 @@ def create_or_load_model() -> LogisticRegression:
 
 def main():
     start = time.perf_counter()
-    model = create_or_load_model()
+    model = create_or_load_model(Models.LR, force_train=True)
     end = time.perf_counter()
 
     print(f"Model training took {datetime.timedelta(seconds=(end - start))}")
