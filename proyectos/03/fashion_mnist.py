@@ -48,7 +48,16 @@ def load_mnist(path, kind="train"):
 def create_or_load_model(
     selected_model: Models, force_train: bool = False
 ) -> LogisticRegression | SGDClassifier:
-    filePath = os.path.join(CACHE_DIR, "fashion_mnist")
+    file_suffix: str | None = None
+    if selected_model == Models.SGDC:
+        file_suffix = "SGDC"
+    elif selected_model == Models.LR:
+        file_suffix = "LR"
+
+    if file_suffix is None:
+        raise Exception
+
+    filePath = os.path.join(CACHE_DIR, f"fashion_mnist_{file_suffix}")
     if not force_train and os.path.isfile(filePath):
         return pickle.load(open(filePath, "rb"))
 
