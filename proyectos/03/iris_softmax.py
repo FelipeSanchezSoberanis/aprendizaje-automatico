@@ -87,27 +87,25 @@ def model_predict(
     return final_list, effi
 
 
-def main():
-    iris: Bunch = datasets.load_iris()  # type: ignore
+iris: Bunch = datasets.load_iris()  # type: ignore
 
-    x_data: np.ndarray = iris["data"]  # type: ignore
-    y_data: np.ndarray = iris["target"]  # type: ignore
+x_data: np.ndarray = iris["data"]  # type: ignore
+y_data: np.ndarray = iris["target"]  # type: ignore
 
-    x_c: np.ndarray = np.c_[np.ones((len(x_data), 1)), x_data]
-    y_c = one_hot_encoder(y_data)
+x_c: np.ndarray = np.c_[np.ones((len(x_data), 1)), x_data]
+y_c = one_hot_encoder(y_data)
 
-    train_test_data: list[np.ndarray] = train_test_split(x_c, y_c, train_size=0.35)  # type: ignore
-    x_train, x_test, y_train, y_test = train_test_data
+train_test_data: list[np.ndarray] = train_test_split(x_c, y_c, train_size=0.35)  # type: ignore
+x_train, x_test, y_train, y_test = train_test_data
 
-    logging.info(f"x_train shape: {x_train.shape}")
+logging.info(f"x_train shape: {x_train.shape}")
+logging.info(f"x_test shape: {x_test.shape}")
+logging.info(f"y_train shape: {y_train.shape}")
+logging.info(f"y_test shape: {y_test.shape}")
 
-    a = model_fit(x_train, y_train)
+a = model_fit(x_train, y_train)
 
-    predictions, efficiency = model_predict(x_test, y_test, a)
+predictions, efficiency = model_predict(x_test, y_test, a)
 
-    logging.info(f"Predictions: {predictions}")
-    logging.info(f"Efficiency: {efficiency}")
-
-
-if __name__ == "__main__":
-    main()
+logging.info(f"Predictions: {predictions}")
+logging.info(f"Efficiency: {efficiency}")
