@@ -63,11 +63,15 @@ def plot_point_cloud_with_centroids(
 
 
 def generate_random_color_per_centroid(centroids: list[Coordinate]) -> dict[Coordinate, str]:
-    colors = random.sample(list(mcolors.TABLEAU_COLORS.keys()), len(centroids))
-    centroids_colors: dict[Coordinate, str] = {}
-    for centroid, color in zip(centroids, colors):
-        centroids_colors[centroid] = color
-    return centroids_colors
+    random_colors = random.sample(list(mcolors.TABLEAU_COLORS.keys()), len(centroids))
+    color_per_centroid: dict[Coordinate, str] = {}
+    for centroid, color in zip(centroids, random_colors):
+        color_per_centroid[centroid] = color
+    return color_per_centroid
+
+
+def get_distance(point_1: Coordinate, point_2: Coordinate) -> float:
+    return math.sqrt((point_2[0] - point_1[0]) ** 2 + (point_2[1] - point_1[1]) ** 2)
 
 
 def get_closest_centroid_per_point(
@@ -75,16 +79,19 @@ def get_closest_centroid_per_point(
     y_values: list[float],
     centroids: list[Coordinate],
 ):
-    centroids_points: dict[Coordinate, Coordinate] = {}
+    closest_centroid_per_point: dict[Coordinate, Coordinate] = {}
 
     for x, y in zip(x_values, y_values):
-        distances: dict[Coordinate, float] = {}
+        distance_per_centroid: dict[Coordinate, float] = {}
+
         for centroid in centroids:
-            x_centroid, y_centroid = centroid
-            distances[centroid] = math.sqrt((x_centroid - x) ** 2 + (y_centroid - y) ** 2)
-        closest_centroid = min(distances, key=lambda x: distances[x])
-        centroids_points[(x, y)] = closest_centroid
-    return centroids_points
+            centroid_x, centroid_y = centroid
+            distance_per_centroid[centroid] = get_distance((centroid_x, centroid_y), (x, y))
+
+        closest_centroid = min(distance_per_centroid, key=lambda x: distance_per_centroid[x])
+        closest_centroid_per_point[(x, y)] = closest_centroid
+
+    return closest_centroid_per_point
 
 
 def update_centroids(
