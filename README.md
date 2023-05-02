@@ -13,6 +13,9 @@
 * [Gradiente descendente](#gradiente-descendente)
 * [Regresión logística](#regresión-logística)
     * [Modelo](#modelo)
+* [Support vector machine](#support-vector-machine)
+    * [Clasificador de margen grande](#clasificador-de-margen-grande)
+        * [Margen duro vs margen suave](#margen-duro-vs-margen-suave)
 
 <!-- vim-markdown-toc -->
 
@@ -163,4 +166,34 @@ $$
     \end{matrix*}
 \right.
 $$
+
+# Support vector machine
+
+Support Vector Machine (SVM) es un poderoso algoritmo de aprendizaje automático que se utiliza tanto para la clasificación como para el análisis de regresión. SVM intenta encontrar un hiperplano en un espacio de alta dimensión que separa de manera máxima las diferentes clases en el conjunto de datos.
+
+En términos simples, SVM es un tipo de algoritmo de aprendizaje supervisado que se utiliza para la clasificación o el análisis de regresión. El objetivo de SVM es encontrar un límite que separe las diferentes clases en el conjunto de datos lo más ampliamente posible, lo que se llama "margen máximo". Los puntos más cercanos al límite se llaman vectores de soporte, de ahí el nombre "Support Vector Machine".
+
+SVM es particularmente útil en situaciones en las que el número de características es mucho mayor que el número de puntos de datos, y los datos no son linealmente separables. SVM se puede utilizar con diferentes funciones de núcleo, como lineal, polinómico, función de base radial (RBF) y sigmoidal.
+
+En general, SVM es un algoritmo de aprendizaje automático versátil y potente que ha encontrado aplicaciones en diversos campos, como la clasificación de imágenes, la clasificación de texto, la bioinformática y las finanzas, entre otros.
+
+## Clasificador de margen grande
+
+Un clasificador de margen grande es un tipo de clasificador utilizado en algoritmos de aprendizaje automático, que tiene como objetivo encontrar un límite de decisión o hiperplano en un espacio de alta dimensión que maximiza el margen o la distancia entre el límite y los puntos de datos más cercanos.
+
+El margen se define como la distancia entre el límite de decisión y los puntos de datos más cercanos de cada clase. Cuanto mayor sea el margen, mayor será la confianza en la decisión de clasificación, ya que indica que el límite de decisión es menos probable que se vea afectado por ruido o valores atípicos en los datos.
+
+Un clasificador de margen grande, como el Support Vector Machine (SVM), es particularmente útil cuando se trabaja con datos que no son linealmente separables, ya que puede encontrar un límite de decisión no lineal que maximice el margen entre las clases. El concepto de un clasificador de margen grande se basa en la idea de minimización del riesgo estructural, que busca minimizar el error de generalización encontrando un límite de decisión que esté lo más lejos posible de los datos de entrenamiento.
+
+En general, el clasificador de margen grande es un concepto poderoso en el aprendizaje automático que se ha utilizado en diversas aplicaciones, incluyendo la clasificación de imágenes, el procesamiento de lenguaje natural y la predicción financiera, entre otros.
+
+### Margen duro vs margen suave
+
+Los clasificadores de margen duro y margen suave son dos tipos de clasificadores lineales utilizados en el aprendizaje automático para problemas de clasificación binaria.
+
+Un clasificador de margen duro intenta encontrar un hiperplano que separe las dos clases con un margen de al menos 1. Esto significa que el clasificador no permite que ningún punto de datos sea clasificado incorrectamente o caiga dentro del margen. Los clasificadores de margen duro funcionan bien cuando los datos son separables linealmente, lo que significa que las dos clases pueden ser completamente separadas por una línea recta o hiperplano.
+
+Por otro lado, un clasificador de margen suave permite cierta cantidad de clasificación incorrecta o puntos de datos que caigan dentro del margen. Encuentra un hiperplano que maximiza el margen permitiendo cierta cantidad de error o clasificación incorrecta. El nivel de error se controla mediante un hiperparámetro llamado parámetro de regularización o C. Cuanto mayor sea el valor de C, más estricto será el clasificador, lo que significa que intentará minimizar la cantidad de clasificaciones incorrectas a expensas de un margen más pequeño. Cuanto menor sea el valor de C, más flexible será el clasificador, lo que significa que permitirá más clasificaciones incorrectas pero resultará en un margen más grande. Los clasificadores de margen suave funcionan bien cuando los datos no son perfectamente separables linealmente o cuando hay ruido en los datos.
+
+En resumen, los clasificadores de margen duro funcionan bien cuando los datos son separables linealmente y no hay ruido, mientras que los clasificadores de margen suave funcionan bien cuando los datos no son perfectamente separables o hay algún ruido. La elección entre los dos depende de la naturaleza de los datos y el equilibrio entre el tamaño del margen y el error de clasificación.
 
