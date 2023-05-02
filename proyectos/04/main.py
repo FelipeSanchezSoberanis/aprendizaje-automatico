@@ -2,6 +2,10 @@ import matplotlib.pyplot as plt
 import random
 import math
 import matplotlib.colors as mcolors
+import os
+
+
+GIF_DIR = os.path.join("proyectos", "04", "media")
 
 
 def generate_random_point_cloud() -> tuple[list[float], list[float]]:
@@ -41,12 +45,15 @@ def plot_point_cloud_with_centroids(
     centroids: list[tuple[float, float]],
     centroids_colors: dict[tuple[float, float], str],
     centroids_points: dict[tuple[float, float], tuple[float, float]],
+    i: int,
 ):
+    plt.figure()
     for x, y in zip(x_values, y_values):
         plt.scatter(x, y, c=centroids_colors[centroids_points[x, y]])
     for x, y in centroids:
         plt.scatter(x, y, c=centroids_colors[(x, y)], marker="+", s=5_000)
-    plt.show()
+    plt.title(f"Iteration: {i + 1}")
+    plt.savefig(os.path.join(GIF_DIR, f"iteration-{str(i + 1).zfill(2)}"), dpi=300)
 
 
 def generate_random_color_for_centroids(
@@ -76,14 +83,59 @@ def get_closest_centroid_for_points(
     return centroids_points
 
 
+def update_centroids(
+    centroids_points: dict[tuple[float, float], tuple[float, float]],
+    old_centroids: list[tuple[float, float]],
+) -> list[tuple[float, float]]:
+    new_centroids: list[tuple[float, float]] = []
+    points_per_centroid: dict[tuple[float, float], list[tuple[float, float]]] = {}
+    for point, centroid in centroids_points.items():
+        if centroid not in points_per_centroid:
+            points_per_centroid[centroid] = []
+        points_per_centroid[centroid].append(point)
+
+    for centroid in old_centroids:
+        x_values: list[float] = []
+        y_values: list[float] = []
+        for x, y in points_per_centroid[centroid]:
+            x_values.append(x)
+            y_values.append(y)
+        new_centroids.append((sum(x_values) / len(x_values), sum(y_values) / len(y_values)))
+    return new_centroids
+
+
+def update_colors_mapping(
+    centroids: list[tuple[float, float]],
+    centroids_colors: dict[tuple[float, float], str],
+    old_centroids: list[tuple[float, float]],
+):
+    new_centroids_colors: dict[tuple[float, float], str] = {}
+
+    for new_centroid, old_centroid in zip(centroids, old_centroids):
+        new_centroids_colors[new_centroid] = centroids_colors[old_centroid]
+
+    return new_centroids_colors
+
+
 def main():
     x_values, y_values = generate_random_point_cloud()
+
+    iterations = 10
+
     centroids = generate_random_centroids(x_values, y_values, 2)
     centroids_colors = generate_random_color_for_centroids(centroids)
-    centroids_points = get_closest_centroid_for_points(x_values, y_values, centroids)
-    plot_point_cloud_with_centroids(
-        x_values, y_values, centroids, centroids_colors, centroids_points
-    )
+    for i in range(iterations):
+        centroids_points = get_closest_centroid_for_points(x_values, y_values, centroids)
+        plot_point_cloud_with_centroids(
+            x_values, y_values, centroids, centroids_colors, centroids_points, i
+        )
+
+        if i == iterations - 1:
+            break
+
+        old_centroids = centroids.copy()
+        centroids = update_centroids(centroids_points, old_centroids)
+        centroids_colors = update_colors_mapping(centroids, centroids_colors, old_centroids)
 
 
 if __name__ == "__main__":
