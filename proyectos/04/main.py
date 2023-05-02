@@ -6,6 +6,7 @@ import os
 
 
 GIF_DIR = os.path.join("proyectos", "04", "media")
+ITERATIONS = 10
 
 
 def generate_random_point_cloud() -> tuple[list[float], list[float]]:
@@ -54,6 +55,7 @@ def plot_point_cloud_with_centroids(
         plt.scatter(x, y, c=centroids_colors[(x, y)], marker="+", s=5_000)
     plt.title(f"Iteration: {i + 1}")
     plt.savefig(os.path.join(GIF_DIR, f"iteration-{str(i + 1).zfill(2)}"), dpi=300)
+    print(f"Saved image {i + 1}/{ITERATIONS}")
 
 
 def generate_random_color_for_centroids(
@@ -120,17 +122,15 @@ def update_colors_mapping(
 def main():
     x_values, y_values = generate_random_point_cloud()
 
-    iterations = 10
-
     centroids = generate_random_centroids(x_values, y_values, 2)
     centroids_colors = generate_random_color_for_centroids(centroids)
-    for i in range(iterations):
+    for i in range(ITERATIONS):
         centroids_points = get_closest_centroid_for_points(x_values, y_values, centroids)
         plot_point_cloud_with_centroids(
             x_values, y_values, centroids, centroids_colors, centroids_points, i
         )
 
-        if i == iterations - 1:
+        if i == ITERATIONS - 1:
             break
 
         old_centroids = centroids.copy()
