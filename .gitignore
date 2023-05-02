@@ -8,4 +8,5 @@ pyrightconfig.json
 .ipynb_checkpoints/
 fashion-mnist/
 proyectos/04/media/*.png
+*.sh
 
