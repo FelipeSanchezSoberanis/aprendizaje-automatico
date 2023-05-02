@@ -88,12 +88,12 @@ def get_closest_centroid_per_point(
 
 
 def update_centroids(
-    centroids_points: dict[Coordinate, Coordinate],
+    closest_centroid_per_point: dict[Coordinate, Coordinate],
     old_centroids: list[Coordinate],
 ) -> list[Coordinate]:
     new_centroids: list[Coordinate] = []
     points_per_centroid: dict[Coordinate, list[Coordinate]] = {}
-    for point, centroid in centroids_points.items():
+    for point, centroid in closest_centroid_per_point.items():
         if centroid not in points_per_centroid:
             points_per_centroid[centroid] = []
         points_per_centroid[centroid].append(point)
@@ -110,15 +110,15 @@ def update_centroids(
 
 def update_colors_mapping(
     centroids: list[Coordinate],
-    centroids_colors: dict[Coordinate, str],
+    color_per_centroid: dict[Coordinate, str],
     old_centroids: list[Coordinate],
 ):
-    new_centroids_colors: dict[Coordinate, str] = {}
+    new_color_per_centroid: dict[Coordinate, str] = {}
 
     for new_centroid, old_centroid in zip(centroids, old_centroids):
-        new_centroids_colors[new_centroid] = centroids_colors[old_centroid]
+        new_color_per_centroid[new_centroid] = color_per_centroid[old_centroid]
 
-    return new_centroids_colors
+    return new_color_per_centroid
 
 
 def main():
