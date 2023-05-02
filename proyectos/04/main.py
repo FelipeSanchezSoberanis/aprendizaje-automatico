@@ -59,6 +59,7 @@ def plot_point_cloud_with_centroids(
         plt.scatter(x, y, c=color_per_centroid[(x, y)], marker="+", s=5_000)
     plt.title(f"Iteration: {iteration + 1}")
     plt.savefig(os.path.join(GIF_DIR, f"iteration-{str(iteration + 1).zfill(2)}"), dpi=300)
+    plt.close()
     print(f"Saved image {iteration + 1}/{ITERATIONS}")
 
 
