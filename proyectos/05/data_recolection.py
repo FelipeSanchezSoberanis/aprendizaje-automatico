@@ -86,7 +86,15 @@ def annotate_frame(frame: npt.NDArray, figure: Figures, index: int) -> npt.NDArr
     return annotated_frame
 
 
+def ensure_dirs():
+    for dir in DATA_DIR_PER_FIGURE.values():
+        if not os.path.isdir(dir):
+            os.makedirs(dir)
+
+
 def main():
+    ensure_dirs()
+
     camera = cv.VideoCapture(0)
     framerate: int = camera.get(5)
     frames_kept_bright = framerate / 3
