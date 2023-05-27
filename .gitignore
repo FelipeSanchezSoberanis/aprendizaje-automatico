@@ -9,4 +9,5 @@ pyrightconfig.json
 fashion-mnist/
 proyectos/04/media/*.png
 *.sh
+proyectos/05/data/
 
