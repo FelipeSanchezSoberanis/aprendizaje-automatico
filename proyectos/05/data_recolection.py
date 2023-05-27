@@ -75,7 +75,9 @@ def annotate_frame(frame: npt.NDArray, figure: Figures, index: int) -> npt.NDArr
 
     rect_start_point, rect_end_point = calculate_centered_square(frame, 400)
 
-    annotated_frame = cv.rectangle(frame, rect_start_point, rect_end_point, color_red, 3)
+    annotated_frame = cv.flip(frame, 1)
+
+    annotated_frame = cv.rectangle(annotated_frame, rect_start_point, rect_end_point, color_red, 3)
 
     annotated_frame = cv.putText(
         annotated_frame, f"{figure.to_string()} {index}", (5, 25), font, 1, color_red
