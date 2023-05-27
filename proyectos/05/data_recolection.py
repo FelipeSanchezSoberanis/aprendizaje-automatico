@@ -63,9 +63,6 @@ def save_figure_frame(index: int, figure: Figures, frame: npt.NDArray):
 
     rect_start_point, rect_end_point = calculate_centered_square(frame, 400)
 
-    print(file_name)
-    return
-
     cv.imwrite(
         os.path.join(DATA_DIR_PER_FIGURE[figure], file_name),
         frame[rect_start_point[1] : rect_end_point[1], rect_start_point[0] : rect_end_point[0]],
