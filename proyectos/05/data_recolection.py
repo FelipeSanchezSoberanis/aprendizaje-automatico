@@ -28,7 +28,7 @@ DATA_DIR_PER_FIGURE: dict[Figures, str] = {
     Figures.PAPER: os.path.join(DATA_DIR, Figures.PAPER.to_string()),
     Figures.SCISSORS: os.path.join(DATA_DIR, Figures.SCISSORS.to_string()),
 }
-IMAGES_PER_FIGURE = 5
+IMAGES_PER_FIGURE = 100
 
 
 def increase_brightness(frame: npt.NDArray, value: int) -> npt.NDArray:
