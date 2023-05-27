@@ -109,7 +109,7 @@ def main():
             original_frame = frame.copy()
 
             if not ret:
-                break
+                raise Exception("Camera error. Closing.")
 
             annotated_frame = annotate_frame(frame, figure, saved_images_counter)
 
