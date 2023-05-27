@@ -1,12 +1,32 @@
 import os
+from datetime import datetime
 import numpy.typing as npt
 import cv2 as cv
+from enum import Enum
+
+
+class Figures(Enum):
+    ROCK = 0
+    PAPER = 1
+    SCISSORS = 2
+
+    def to_string(self) -> str:
+        if self == Figures.ROCK:
+            return "rock"
+        elif self == Figures.PAPER:
+            return "paper"
+        elif self == Figures.SCISSORS:
+            return "scissors"
+        else:
+            raise Exception("Invalid enum")
+
 
 HOME_DIR = os.path.dirname(os.path.realpath(__file__))
-DATA_DIRS = {
-    "rock": os.path.join(HOME_DIR, "data", "rock"),
-    "paper": os.path.join(HOME_DIR, "data", "paper"),
-    "scissors": os.path.join(HOME_DIR, "data", "scissors"),
+DATA_DIR = os.path.join(HOME_DIR, "data")
+DATA_DIR_PER_FIGURE: dict[Figures, str] = {
+    Figures.ROCK: os.path.join(DATA_DIR, Figures.ROCK.to_string()),
+    Figures.PAPER: os.path.join(DATA_DIR, Figures.PAPER.to_string()),
+    Figures.SCISSORS: os.path.join(DATA_DIR, Figures.SCISSORS.to_string()),
 }
 IMAGES_PER_FIGURE = 5
 
@@ -36,19 +56,23 @@ def calculate_centered_square(
     return rect_start_point, rect_end_point
 
 
-def save_figure_frame(index: int, figure: str, frame: npt.NDArray):
+def save_figure_frame(index: int, figure: Figures, frame: npt.NDArray):
     username = os.environ.get("USER", os.environ.get("USERNAME"))
-    file_name = f"{username}-{figure}-{str(index).zfill(3)}.png"
+    date_time_str = datetime.now().strftime("%m%d%Y%H%M%S%f")
+    file_name = f"{username}-{date_time_str}-{figure.to_string()}-{str(index + 1).zfill(3)}.png"
 
     rect_start_point, rect_end_point = calculate_centered_square(frame, 400)
 
+    print(file_name)
+    return
+
     cv.imwrite(
-        os.path.join(DATA_DIRS[figure], file_name),
+        os.path.join(DATA_DIR_PER_FIGURE[figure], file_name),
         frame[rect_start_point[1] : rect_end_point[1], rect_start_point[0] : rect_end_point[0]],
     )
 
 
-def annotate_frame(frame: npt.NDArray, figure: str, index: int) -> npt.NDArray:
+def annotate_frame(frame: npt.NDArray, figure: Figures, index: int) -> npt.NDArray:
     color_red = (0, 0, 255)
     font = cv.FONT_HERSHEY_SIMPLEX
 
@@ -56,7 +80,9 @@ def annotate_frame(frame: npt.NDArray, figure: str, index: int) -> npt.NDArray:
 
     annotated_frame = cv.rectangle(frame, rect_start_point, rect_end_point, color_red, 3)
 
-    annotated_frame = cv.putText(annotated_frame, f"{figure} {index}", (5, 25), font, 1, color_red)
+    annotated_frame = cv.putText(
+        annotated_frame, f"{figure.to_string()} {index}", (5, 25), font, 1, color_red
+    )
 
     return annotated_frame
 
@@ -67,7 +93,7 @@ def main():
     frames_kept_bright = framerate / 3
     wait_time_between_figures = 5  # in seconds
 
-    for figure in DATA_DIRS:
+    for figure in DATA_DIR_PER_FIGURE:
         saved_images_counter = 0
         frame_counter = -wait_time_between_figures * framerate
 
