@@ -29,6 +29,7 @@ DATA_DIR_PER_FIGURE: dict[Figures, str] = {
     Figures.SCISSORS: os.path.join(DATA_DIR, Figures.SCISSORS.to_string()),
 }
 IMAGES_PER_FIGURE = 100
+IMAGE_DIMENSION = 400
 
 
 def increase_brightness(frame: npt.NDArray, value: int) -> npt.NDArray:
@@ -61,7 +62,7 @@ def save_figure_frame(index: int, figure: Figures, frame: npt.NDArray):
     date_time_str = datetime.now().strftime("%m%d%Y%H%M%S%f")
     file_name = f"{username}-{date_time_str}-{figure.to_string()}-{str(index + 1).zfill(3)}.png"
 
-    rect_start_point, rect_end_point = calculate_centered_square(frame, 400)
+    rect_start_point, rect_end_point = calculate_centered_square(frame, IMAGE_DIMENSION)
 
     cv.imwrite(
         os.path.join(DATA_DIR_PER_FIGURE[figure], file_name),
@@ -73,7 +74,7 @@ def annotate_frame(frame: npt.NDArray, figure: Figures, index: int) -> npt.NDArr
     color_red = (0, 0, 255)
     font = cv.FONT_HERSHEY_SIMPLEX
 
-    rect_start_point, rect_end_point = calculate_centered_square(frame, 400)
+    rect_start_point, rect_end_point = calculate_centered_square(frame, IMAGE_DIMENSION)
 
     annotated_frame = cv.flip(frame, 1)
 
